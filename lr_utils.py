@@ -1,12 +1,16 @@
 import numpy as np
 import h5py
 
+# import matplotlib.pyplot as plt
+
 def load_dataset():
     train_dataset = h5py.File('datasets/train_catvnoncat.h5', "r")
     # print(train_dataset.keys()) # ['list_classes', 'train_set_x', 'train_set_y']
     
     train_set_x_data = np.array(train_dataset["train_set_x"][:])
     # print(str(train_set_x_data.shape)) # (209, 64, 64, 3)
+    # plt.imshow(train_set_x_data[150])
+    # plt.show()
     
     train_set_y_data = np.array(train_dataset["train_set_y"][:])
     # print(str(train_set_y_data.shape)) # (209,)
