@@ -101,6 +101,15 @@ The API accepts a multipart form field named `file` in JPG, JPEG, PNG, or AVIF f
 }
 ```
 
+The backend loads the pre-trained weights from `model_weights.npz`, so Render can start
+the API without retraining on every deployment. To retrain the model locally, run:
+
+```powershell
+python .\linear_regression.py
+```
+
+Commit the updated `model_weights.npz` when you want to deploy newly trained weights.
+
 ## Share the app publicly
 
 GitHub Pages hosts the React frontend, while Render hosts the Flask API. GitHub Pages cannot run the Python backend by itself.

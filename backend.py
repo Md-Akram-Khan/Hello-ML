@@ -5,23 +5,21 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from PIL import Image, UnidentifiedImageError
 from linear_regression import (
-    model,
     num_px,
     predict as predict_model,
     sigmoid,
-    train_set_x,
-    train_set_y_data,
 )
 BASE_DIR = Path(__file__).resolve().parent
 IMAGE_SIZE = num_px
+MODEL_PATH = BASE_DIR / "model_weights.npz"
 ALLOWED_EXTENSIONS = {"jpg", "jpeg", "png", "avif"}
 
 app = Flask(__name__)
 CORS(app)
 
 
-MODEL = model(train_set_x, train_set_y_data, train_set_x, train_set_y_data,
-              iterations=200, alpha=0.01)
+with np.load(MODEL_PATH) as saved_model:
+    MODEL = {"w": saved_model["w"], "b": float(saved_model["b"])}
 
 
 def classify_image(image: Image.Image) -> tuple[str, float]:

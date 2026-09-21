@@ -89,3 +89,20 @@ def model(X_train, Y_train, X_test, Y_test, iterations=2000, alpha=0.5):
          "iterations": iterations}
     return d
 
+
+if __name__ == "__main__":
+    trained_model = model(
+        train_set_x,
+        train_set_y_data,
+        test_set_x,
+        test_set_y_data,
+        iterations=2000,
+        alpha=0.01,
+    )
+    np.savez(
+        "model_weights.npz",
+        w=trained_model["w"],
+        b=trained_model["b"],
+    )
+    print("Saved trained model to model_weights.npz")
+
