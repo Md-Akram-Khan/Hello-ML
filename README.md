@@ -101,4 +101,22 @@ The API accepts a multipart form field named `file` in JPG, JPEG, PNG, or AVIF f
 }
 ```
 
+## Share the app publicly
+
+GitHub Pages hosts the React frontend, while Render hosts the Flask API. GitHub Pages cannot run the Python backend by itself.
+
+1. Push this repository to GitHub.
+2. On [Render](https://render.com), choose **New > Blueprint**, connect this repository, and deploy `render.yaml`.
+3. Copy the deployed Render URL, for example `https://hello-ml-api.onrender.com`.
+4. In GitHub, open **Settings > Secrets and variables > Actions**, create a repository secret named `VITE_API_URL`, and set it to the Render URL without a trailing slash.
+5. Open **Settings > Pages**, choose **GitHub Actions** as the source, and push to `main` to trigger deployment.
+
+The public frontend URL will be:
+
+```text
+https://Md-Akram-Khan.github.io/Hello-ML/
+```
+
+The Render free service may sleep when idle, so the first prediction after a quiet period can take a little longer.
+
 > The filename `linear_regression.py` is retained from the original exercise, but the model implemented in the file is logistic regression.

@@ -1,52 +1,37 @@
-"""Minimal Flask API for the existing cat versus non-cat classifier."""
-
 from pathlib import Path
-
+import os
 import numpy as np
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from PIL import Image, UnidentifiedImageError
-
-from lr_utils import load_dataset
-
+from linear_regression import (
+    model,
+    num_px,
+    predict as predict_model,
+    sigmoid,
+    train_set_x,
+    train_set_y_data,
+)
 BASE_DIR = Path(__file__).resolve().parent
-IMAGE_SIZE = 64
+IMAGE_SIZE = num_px
 ALLOWED_EXTENSIONS = {"jpg", "jpeg", "png", "avif"}
 
 app = Flask(__name__)
 CORS(app)
 
 
-def sigmoid(values: np.ndarray) -> np.ndarray:
-    values = np.clip(values, -500, 500)
-    return 1 / (1 + np.exp(-values))
-
-
-def train_classifier() -> tuple[np.ndarray, float]:
-    train_images, train_labels, _, _, _ = load_dataset()
-    features = train_images.reshape(train_images.shape[0], -1).T / 255.0
-    labels = train_labels
-    weights = np.zeros((features.shape[0], 1))
-    bias = 0.0
-    sample_count = features.shape[1]
-
-    for _ in range(2000):
-        probabilities = sigmoid(np.dot(weights.T, features) + bias)
-        error = probabilities - labels
-        weights -= 0.005 * np.dot(features, error.T) / sample_count
-        bias -= 0.005 * np.sum(error) / sample_count
-
-    return weights, bias
-
-
-WEIGHTS, BIAS = train_classifier()
+MODEL = model(train_set_x, train_set_y_data, train_set_x, train_set_y_data,
+              iterations=2000, alpha=0.01)
 
 
 def classify_image(image: Image.Image) -> tuple[str, float]:
     resized = image.convert("RGB").resize((IMAGE_SIZE, IMAGE_SIZE))
     pixels = np.asarray(resized, dtype=np.float32).reshape(-1, 1) / 255.0
-    probability = float(sigmoid(np.dot(WEIGHTS.T, pixels) + BIAS).item())
-    prediction = "cat" if probability >= 0.5 else "not_cat"
+    prediction_value = predict_model(MODEL["w"], MODEL["b"], pixels)
+    probability = float(
+        sigmoid(np.dot(MODEL["w"].T, pixels) + MODEL["b"]).item()
+    )
+    prediction = "cat" if int(prediction_value.item()) == 1 else "not_cat"
     confidence = probability if prediction == "cat" else 1 - probability
     return prediction, confidence
 
@@ -76,4 +61,8 @@ def predict() -> tuple[dict, int]:
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(
+        host="0.0.0.0",
+        port=int(os.environ.get("PORT", 5000)),
+        debug=os.environ.get("FLASK_DEBUG", "0") == "1",
+    )
