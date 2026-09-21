@@ -21,7 +21,7 @@ CORS(app)
 
 
 MODEL = model(train_set_x, train_set_y_data, train_set_x, train_set_y_data,
-              iterations=2000, alpha=0.01)
+              iterations=200, alpha=0.01)
 
 
 def classify_image(image: Image.Image) -> tuple[str, float]:
