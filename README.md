@@ -187,9 +187,9 @@ The frontend accepts JPG, JPEG, PNG and AVIF images smaller than 10 MB. The back
 
 GitHub Pages serves the static React frontend, while Render runs the Python Flask API.
 
-**Live Demo:** [\[Add GitHub Pages URL\]](https://md-akram-khan.github.io/Hello-ML/)
+**Live Demo:** [\[GitHub Pages URL\]](https://md-akram-khan.github.io/Hello-ML/)
 
-**Backend Health Check:** [\[Add Render URL\]/health](https://catvision-ams9.onrender.com/health)
+**Backend Health Check:** [\[Render URL\]/health](https://catvision-ams9.onrender.com/health)
 
 Render free services may sleep when idle, so the first request after inactivity can take longer.
 
