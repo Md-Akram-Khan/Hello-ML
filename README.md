@@ -172,19 +172,7 @@ npm run dev
 
 Open the local URL shown by Vite, normally `http://localhost:5173`.
 
-## Environment Variables
 
-| Variable | Purpose | Local value |
-| --- | --- | --- |
-| `VITE_API_URL` | Base URL used by the React frontend for API requests. | `http://localhost:5000` |
-
-For production, set the GitHub Actions repository secret `VITE_API_URL` to the deployed Render backend URL without a trailing slash, for example:
-
-```text
-https://your-render-service.onrender.com
-```
-
-Do not place passwords, tokens, or other secrets in frontend environment files. Values beginning with `VITE_` are included in the browser bundle.
 
 ## How to Use
 
@@ -199,25 +187,9 @@ The frontend accepts JPG, JPEG, PNG and AVIF images smaller than 10 MB. The back
 
 GitHub Pages serves the static React frontend, while Render runs the Python Flask API.
 
-### Frontend: GitHub Pages
+**Live Demo:** [\[Add GitHub Pages URL\]](https://md-akram-khan.github.io/Hello-ML/)
 
-The workflow in `.github/workflows/deploy-pages.yml` installs dependencies, builds the Vite application and deploys `frontend/dist` when changes are pushed to `main`.
-
-### Backend: Render
-
-`render.yaml` configures Render to install `requirements.txt` and start Flask with Gunicorn. The backend listens on Render's `PORT` environment variable.
-
-Deployment steps:
-
-1. Deploy the repository's `render.yaml` as a Render Blueprint.
-2. Copy the Render backend URL.
-3. Add a GitHub Actions repository secret named `VITE_API_URL` with that URL.
-4. Set GitHub Pages' source to **GitHub Actions**.
-5. Push to `main` to deploy the frontend.
-
-**Live Demo:** [Add GitHub Pages URL]
-
-**Backend Health Check:** [Add Render URL]/health
+**Backend Health Check:** [\[Add Render URL\]/health](https://catvision-ams9.onrender.com/health)
 
 Render free services may sleep when idle, so the first request after inactivity can take longer.
 
@@ -232,22 +204,3 @@ Render free services may sleep when idle, so the first request after inactivity 
 - The Render free tier may sleep when unused, causing a delay on the first request after inactivity.
 - The frontend limits selected files to 10 MB and supports JPG, JPEG, PNG and AVIF formats.
 
-## Share the app publicly
-
-GitHub Pages hosts the React frontend, while Render hosts the Flask API. GitHub Pages cannot run the Python backend by itself.
-
-1. Push this repository to GitHub.
-2. On [Render](https://render.com), choose **New > Blueprint**, connect this repository and deploy `render.yaml`.
-3. Copy the deployed Render URL, for example `https://hello-ml-api.onrender.com`.
-4. In GitHub, open **Settings > Secrets and variables > Actions**, create a repository secret named `VITE_API_URL` and set it to the Render URL without a trailing slash.
-5. Open **Settings > Pages**, choose **GitHub Actions** as the source and push to `main` to trigger deployment.
-
-The public frontend URL will be:
-
-```text
-https://Md-Akram-Khan.github.io/Hello-ML/
-```
-
-The Render free service may sleep when idle, so the first prediction after a quiet period can take a little longer.
-
-> The filename `linear_regression.py` is retained from the original exercise, but the model implemented in the file is logistic regression.
