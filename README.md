@@ -1,6 +1,6 @@
 # CatVision: Cat vs Non-Cat Classifier
 
-CatVision is the initial version of an image classification system that predicts whether an uploaded image contains a cat. It uses a Logistic Regression model implemented with NumPy, a Flask API, and a React/Vite frontend.
+CatVision is the initial version of an image classification system that predicts whether an uploaded image contains a cat. It uses a Logistic Regression model implemented with NumPy, a Flask API and a React/Vite frontend.
 
 The application follows this architecture:
 
@@ -14,7 +14,7 @@ The React frontend is deployed through GitHub Pages, while the Flask backend is 
 
 This is a basic, initial version of the classifier. The model is trained on the provided cat-versus-non-cat HDF5 dataset and uses a saved `model_weights.npz` file when the API starts. It is intended as a learning project and working prototype, not as a production-grade computer vision system.
 
-Future versions may improve the model, accuracy, interface, dataset, and functionality. Those improvements are not part of the current implementation.
+Future versions may improve the model, accuracy, interface, dataset and functionality. Those improvements are not part of the current implementation.
 
 ## Features
 
@@ -64,13 +64,13 @@ ML project/
 
 | Path | Purpose |
 | --- | --- |
-| `backend.py` | Flask application that loads the saved model, preprocesses uploads, and exposes `/health` and `/predict`. |
+| `backend.py` | Flask application that loads the saved model, preprocesses uploads and exposes `/health` and `/predict`. |
 | `linear_regression.py` | Contains the Logistic Regression functions. Running it trains the model and creates `model_weights.npz`. |
-| `lr_utils.py` | Loads the training and test HDF5 datasets, labels, and class names. |
+| `lr_utils.py` | Loads the training and test HDF5 datasets, labels and class names. |
 | `model_weights.npz` | Saved weights and bias used by the backend at startup. |
 | `datasets/` | Contains `train_catvnoncat.h5` and `test_catvnoncat.h5`. |
 | `images/` | Contains image files included with the repository for local reference or testing. |
-| `frontend/src/App.jsx` | React interface for selecting, previewing, uploading, and displaying results. |
+| `frontend/src/App.jsx` | React interface for selecting, previewing, uploading and displaying results. |
 | `frontend/src/api.js` | Sends image files to the backend and maps the API response. |
 | `frontend/src/main.jsx` | React entry point. |
 | `frontend/src/styles.css` | Frontend styling. |
@@ -87,7 +87,7 @@ ML project/
 2. The frontend checks that the image is JPG, JPEG, PNG, or AVIF and is no larger than 10 MB.
 3. The frontend sends a multipart request with the image in a field named `file`.
 4. Flask receives the request at `POST /predict`.
-5. The backend converts the image to RGB, resizes it to 64 by 64 pixels, flattens the pixels, and normalizes them.
+5. The backend converts the image to RGB, resizes it to 64 by 64 pixels, flattens the pixels and normalizes them.
 6. The backend calls the model's prediction and sigmoid functions using the saved weights.
 7. Flask returns JSON containing `prediction` and `confidence`.
 8. React displays the classification result and confidence.
@@ -193,7 +193,7 @@ Do not place passwords, tokens, or other secrets in frontend environment files. 
 3. Confirm the preview and click **Classify image**.
 4. View the predicted class and confidence.
 
-The frontend accepts JPG, JPEG, PNG, and AVIF images smaller than 10 MB. The backend also validates the file extension and image content.
+The frontend accepts JPG, JPEG, PNG and AVIF images smaller than 10 MB. The backend also validates the file extension and image content.
 
 ## Public Deployment
 
@@ -201,7 +201,7 @@ GitHub Pages serves the static React frontend, while Render runs the Python Flas
 
 ### Frontend: GitHub Pages
 
-The workflow in `.github/workflows/deploy-pages.yml` installs dependencies, builds the Vite application, and deploys `frontend/dist` when changes are pushed to `main`.
+The workflow in `.github/workflows/deploy-pages.yml` installs dependencies, builds the Vite application and deploys `frontend/dist` when changes are pushed to `main`.
 
 ### Backend: Render
 
@@ -230,17 +230,17 @@ Render free services may sleep when idle, so the first request after inactivity 
 - It uses a fixed image size and simple pixel-based features; it does not use a convolutional neural network or transfer learning.
 - Prediction quality depends on the committed `model_weights.npz` artifact.
 - The Render free tier may sleep when unused, causing a delay on the first request after inactivity.
-- The frontend limits selected files to 10 MB and supports JPG, JPEG, PNG, and AVIF formats.
+- The frontend limits selected files to 10 MB and supports JPG, JPEG, PNG and AVIF formats.
 
 ## Share the app publicly
 
 GitHub Pages hosts the React frontend, while Render hosts the Flask API. GitHub Pages cannot run the Python backend by itself.
 
 1. Push this repository to GitHub.
-2. On [Render](https://render.com), choose **New > Blueprint**, connect this repository, and deploy `render.yaml`.
+2. On [Render](https://render.com), choose **New > Blueprint**, connect this repository and deploy `render.yaml`.
 3. Copy the deployed Render URL, for example `https://hello-ml-api.onrender.com`.
-4. In GitHub, open **Settings > Secrets and variables > Actions**, create a repository secret named `VITE_API_URL`, and set it to the Render URL without a trailing slash.
-5. Open **Settings > Pages**, choose **GitHub Actions** as the source, and push to `main` to trigger deployment.
+4. In GitHub, open **Settings > Secrets and variables > Actions**, create a repository secret named `VITE_API_URL` and set it to the Render URL without a trailing slash.
+5. Open **Settings > Pages**, choose **GitHub Actions** as the source and push to `main` to trigger deployment.
 
 The public frontend URL will be:
 
