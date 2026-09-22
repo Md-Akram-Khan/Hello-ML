@@ -10,6 +10,12 @@ React Frontend -> Flask API -> Logistic Regression Model
 
 The React frontend is deployed through GitHub Pages, while the Flask backend is deployed separately through Render.
 
+**Live Demo:** [\[GitHub Pages URL\]](https://md-akram-khan.github.io/Hello-ML/)
+
+**Backend Health Check:** [\[Render URL\]/health](https://catvision-ams9.onrender.com/health)
+
+Render free services may sleep when idle, so the first request after inactivity can take longer.
+
 ## Current Version and Scope
 
 This is a basic, initial version of the classifier. The model is trained on the provided cat-versus-non-cat HDF5 dataset and uses a saved `model_weights.npz` file when the API starts. It is intended as a learning project and working prototype, not as a production-grade computer vision system.
@@ -182,16 +188,6 @@ Open the local URL shown by Vite, normally `http://localhost:5173`.
 4. View the predicted class and confidence.
 
 The frontend accepts JPG, JPEG, PNG and AVIF images smaller than 10 MB. The backend also validates the file extension and image content.
-
-## Public Deployment
-
-GitHub Pages serves the static React frontend, while Render runs the Python Flask API.
-
-**Live Demo:** [\[GitHub Pages URL\]](https://md-akram-khan.github.io/Hello-ML/)
-
-**Backend Health Check:** [\[Render URL\]/health](https://catvision-ams9.onrender.com/health)
-
-Render free services may sleep when idle, so the first request after inactivity can take longer.
 
 ## Limitations
 
