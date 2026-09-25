@@ -99,7 +99,7 @@ function App() {
         <section className="hero-copy">
           <div className="eyebrow"><Sparkles size={14} /> Computer vision, made clear</div>
           <h1>See what your image<br /><span>is telling you.</span></h1>
-          <p>Upload a photo and let CatVision identify whether your subject is feline with a focused, explainable prediction.</p>
+          <p>Upload an image and let the deep neural network produce a prediction with confidence scores for every class.</p>
         </section>
 
         <section className="workspace-grid">
@@ -163,10 +163,10 @@ function App() {
               <div className="confidence-track"><div style={{ width: `${result.confidence}%` }} /></div>
               <button className="reset-button" onClick={clearImage}><RotateCcw size={15} /> Try another image</button>
             </div>
-          </div> : <div className="result-empty"><div className="result-empty-icon"><Sparkles size={21} /></div><div><h3>Your result will appear here</h3><p>Upload an image, then start the classifier to see the model's prediction and confidence.</p></div></div>}
+          </div> : <div className="result-empty"><div className="result-empty-icon"><Sparkles size={21} /></div><div><h3>Your result will appear here</h3><p>Upload an image and run the model to see its prediction.</p></div></div>}
         </section>
 
-        <footer><span>CatVision / Local inference workspace</span><span>Powered by Thank_you</span></footer>
+        <footer><span>CatVision V1.0</span><span>Powered by Md Akram Khan</span></footer>
       </div>
     </main>
   );
