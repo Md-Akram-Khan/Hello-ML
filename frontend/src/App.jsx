@@ -89,8 +89,8 @@ function App() {
           <div className="brand-lockup">
             <div className="brand-mark"><BrainCircuit size={21} strokeWidth={2.4} /></div>
             <div>
-              <p className="brand-name">CatVision</p>
-              <p className="brand-subtitle">AI-Powered Cat Image Classifier</p>
+              <p className="brand-name">CatVision V1.0</p>
+              <p className="brand-subtitle">Cat Classifier using Linear Regression</p>
             </div>
           </div>
           <div className="header-status"><span className="status-dot" /> Model online</div>
